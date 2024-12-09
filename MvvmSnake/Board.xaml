@@ -3,30 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:MvvmSnake.Views"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
 
     <Border BorderBrush="Black" BorderThickness="2">
         <Grid x:Name="boardGrid" ShowGridLines="True">
-            <ItemsControl ItemsSource="{Binding Snake}">
+            <ItemsControl ItemsSource="{Binding Snake, Converter={StaticResource MyDebugConverter}}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                        </Grid>
+                        <!-- Use a UniformGrid instead to ensure shared layout -->
+                        <UniformGrid Rows="{Binding BoardSize, Converter={StaticResource MyDebugConverter}}" Columns="{Binding BoardSize, Converter={StaticResource MyDebugConverter}}" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Rectangle Fill="Green"
-                           Grid.Row="{Binding Row}"
-                           Grid.Column="{Binding Column}" />
+                        <Rectangle Fill="{Binding Color}" Grid.Row="{Binding Row}" Grid.Column="{Binding Column}" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

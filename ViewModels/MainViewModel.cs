@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace MvvmSnake.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel/* : INotifyPropertyChanged*/
     {
         private int _boardSize;
         public int BoardSize
@@ -22,15 +22,15 @@ namespace MvvmSnake.ViewModels
                 if (_boardSize != value)
                 {
                     _boardSize = value;
-                    OnPropertyChanged(nameof(BoardSize));
+                    //OnPropertyChanged(nameof(BoardSize));
                     // Ensure any other initialization or logic related to BoardSize is handled here
                 }
             }
         }
 
-        private Snake _snake;
+        private Board _snake;
 
-        public Snake Snake
+        public Board Snake
         {
             get { return _snake; }
             set
@@ -38,7 +38,7 @@ namespace MvvmSnake.ViewModels
                 if (_snake != value)
                 {
                     _snake = value;
-                    OnPropertyChanged(nameof(Snake));
+                    //OnPropertyChanged(nameof(Snake));
                 }
             }
         }
@@ -46,7 +46,7 @@ namespace MvvmSnake.ViewModels
         public MainViewModel(int boardSize)
         {
             BoardSize = boardSize;
-            InitializeSnake(boardSize);
+            Snake = new Board(boardSize);
             InitializeCommands();
         }
 
@@ -55,37 +55,23 @@ namespace MvvmSnake.ViewModels
         public ICommand MoveDownCommand { get; private set; }
         public ICommand MoveLeftCommand { get; private set; }
 
-        private void InitializeSnake(int boardSize)
-        {
-            // Calculate initial snake positions based on board size
-            var initialIndexes = new ObservableCollection<Indexes>();
-            int middleRow = boardSize / 2;
-
-            for (int i = 1; i < boardSize - 1; i++)
-            {
-                initialIndexes.Add(new Indexes { Row = middleRow, Column = i });
-            }
-
-            Snake = new Snake(initialIndexes);
-        }
-
         private void InitializeCommands()
         {
             MoveUpCommand = new RelayCommand(() => {
                 Snake.MoveUp();
-                OnPropertyChanged(nameof(Snake));
+                //OnPropertyChanged(nameof(Snake));
                 }, () => CanMoveUp());
             MoveRightCommand = new RelayCommand(() => {
                 Snake.MoveRight();
-                OnPropertyChanged(nameof(Snake));
+                //OnPropertyChanged(nameof(Snake));
                 }, () => CanMoveRight());
             MoveDownCommand = new RelayCommand(() => {
                 Snake.MoveDown();
-                OnPropertyChanged(nameof(Snake));
+                //OnPropertyChanged(nameof(Snake));
                 }, () => CanMoveDown());
             MoveLeftCommand = new RelayCommand(() => {
                 Snake.MoveLeft();
-                OnPropertyChanged(nameof(Snake));
+                //OnPropertyChanged(nameof(Snake));
                 }, () => CanMoveLeft());
         }
 
@@ -166,11 +152,11 @@ namespace MvvmSnake.ViewModels
         }
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //protected virtual void OnPropertyChanged(string propertyName)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
     }
 }

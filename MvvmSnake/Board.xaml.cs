@@ -17,39 +17,11 @@ namespace MvvmSnake.Views
                 "BoardSize",
                 typeof(int),
                 typeof(Board),
-                new PropertyMetadata(0, OnBoardSizePropertyChanged));
+                new PropertyMetadata(0));
 
         public Board()
         {
             InitializeComponent();
-            DrawBoard();
-        }
-
-        private static void OnBoardSizePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var board = (Board)d;
-            board.DrawBoard();
-        }
-
-        private void DrawBoard()
-        {
-            boardGrid.ColumnDefinitions.Clear();
-            boardGrid.RowDefinitions.Clear();
-
-            for (int i = 0; i < BoardSize; i++)
-            {
-                var column = new ColumnDefinition
-                {
-                    Width = new GridLength(1, GridUnitType.Star)
-                };
-                boardGrid.ColumnDefinitions.Add(column);
-
-                var row = new RowDefinition
-                {
-                    Height = new GridLength(1, GridUnitType.Star)
-                };
-                boardGrid.RowDefinitions.Add(row);
-            }
         }
     }
 }
