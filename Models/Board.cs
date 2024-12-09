@@ -11,7 +11,6 @@ namespace Models
     public class Board : ObservableCollection<Indexes>
     {
         private IList<Indexes> _snake;
-        private IList<Indexes> snakeIndexes;
 
         public IList<Indexes> SnakeIndexes { get => _snake; set => _snake = value; }
 

@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace MvvmSnake.ViewModels
 {
-    public class MainViewModel/* : INotifyPropertyChanged*/
+    public class MainViewModel
     {
         private int _boardSize;
         public int BoardSize
@@ -22,8 +22,6 @@ namespace MvvmSnake.ViewModels
                 if (_boardSize != value)
                 {
                     _boardSize = value;
-                    //OnPropertyChanged(nameof(BoardSize));
-                    // Ensure any other initialization or logic related to BoardSize is handled here
                 }
             }
         }
@@ -38,7 +36,6 @@ namespace MvvmSnake.ViewModels
                 if (_snake != value)
                 {
                     _snake = value;
-                    //OnPropertyChanged(nameof(Snake));
                 }
             }
         }
@@ -59,19 +56,15 @@ namespace MvvmSnake.ViewModels
         {
             MoveUpCommand = new RelayCommand(() => {
                 Snake.MoveUp();
-                //OnPropertyChanged(nameof(Snake));
                 }, () => CanMoveUp());
             MoveRightCommand = new RelayCommand(() => {
                 Snake.MoveRight();
-                //OnPropertyChanged(nameof(Snake));
                 }, () => CanMoveRight());
             MoveDownCommand = new RelayCommand(() => {
                 Snake.MoveDown();
-                //OnPropertyChanged(nameof(Snake));
                 }, () => CanMoveDown());
             MoveLeftCommand = new RelayCommand(() => {
                 Snake.MoveLeft();
-                //OnPropertyChanged(nameof(Snake));
                 }, () => CanMoveLeft());
         }
 
@@ -170,13 +163,5 @@ namespace MvvmSnake.ViewModels
 
             return true;
         }
-
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        //protected virtual void OnPropertyChanged(string propertyName)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
     }
 }

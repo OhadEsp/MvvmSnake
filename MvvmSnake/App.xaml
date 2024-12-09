@@ -4,6 +4,5 @@
              xmlns:local="clr-namespace:MvvmSnake.Views"
              StartupUri="MainView.xaml">
     <Application.Resources>
-        <!--<local:MyDebugConverter x:Key="MyDebugConverter" />-->
     </Application.Resources>
 </Application>
