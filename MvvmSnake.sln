@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmSnake", "MvvmSnake\MvvmSnake.csproj", "{5CC689A1-ED28-489F-AE40-E1DC00E5AB9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{600FE304-9193-444B-AB2D-952C7C98E151}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModels", "ViewModels\ViewModels.csproj", "{F1E24D54-6177-4D8E-B138-E5762F3591F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CC689A1-ED28-489F-AE40-E1DC00E5AB9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CC689A1-ED28-489F-AE40-E1DC00E5AB9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CC689A1-ED28-489F-AE40-E1DC00E5AB9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CC689A1-ED28-489F-AE40-E1DC00E5AB9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{600FE304-9193-444B-AB2D-952C7C98E151}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{600FE304-9193-444B-AB2D-952C7C98E151}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{600FE304-9193-444B-AB2D-952C7C98E151}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{600FE304-9193-444B-AB2D-952C7C98E151}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E24D54-6177-4D8E-B138-E5762F3591F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E24D54-6177-4D8E-B138-E5762F3591F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E24D54-6177-4D8E-B138-E5762F3591F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E24D54-6177-4D8E-B138-E5762F3591F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A906498-9FBB-4625-AACF-CA55BE101F1D}
+	EndGlobalSection
+EndGlobal
