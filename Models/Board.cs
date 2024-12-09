@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,16 @@ namespace Models
 {
     public class Board : ObservableCollection<Indexes>
     {
+        private IList<Indexes> _snake;
+        private IList<Indexes> snakeIndexes;
+
+        public IList<Indexes> SnakeIndexes { get => _snake; set => _snake = value; }
+
+        public int SnakeLength { get; set; }
 
         public Board(int boardSize)
         {
+            _snake = new List<Indexes>();
             InitializeBoard(boardSize);
             InitializeSnake(boardSize);
         }
@@ -30,47 +38,94 @@ namespace Models
         private void InitializeSnake(int boardSize)
         {
             // Calculate initial snake positions based on board size
+            SnakeLength = 0;
             int middleRow = boardSize / 2;
 
             for (int i = 1; i < boardSize - 1; i++)
             {
-                this.Where(b => b.Row == middleRow && b.Column == i).FirstOrDefault().Color = "Green";
+                this.Where(b => b.Row == middleRow && b.Column == i).Single().Color = "Green";
+                SnakeLength++;
+                _snake.Add(new Indexes { Row = middleRow, Column = i, Color = "Green"});
             }
         }
 
         public void MoveUp()
         {
-            var snakeHead = this.Last();
-            this.RemoveAt(0); // removes the tail
-            this.Add(new Indexes { Row = snakeHead.Row - 1, Column = snakeHead.Column });
+            var snakeHead = _snake[SnakeLength-1];
+            this.Where(b => b.Row == _snake[0].Row && b.Column == _snake[0].Column).Single().Color = "White";
+            _snake.RemoveAt(0); // removes the tail
+            this.Where(b => b.Row == snakeHead.Row - 1 && b.Column == snakeHead.Column).Single().Color = "Green";
+            _snake.Add(new Indexes { Row = snakeHead.Row - 1, Column = snakeHead.Column, Color = "Green" });
         }
 
         public void MoveRight()
         {
-            var snakeHead = this.Last();
-            this.RemoveAt(0); // removes the tail
-            this.Add(new Indexes { Row = snakeHead.Row, Column = snakeHead.Column + 1 });
+            var snakeHead = _snake[SnakeLength - 1];
+            this.Where(b => b.Row == _snake[0].Row && b.Column == _snake[0].Column).Single().Color = "White";
+            _snake.RemoveAt(0); // removes the tail
+            this.Where(b => b.Row == snakeHead.Row && b.Column == snakeHead.Column + 1).Single().Color = "Green";
+            _snake.Add(new Indexes { Row = snakeHead.Row, Column = snakeHead.Column + 1, Color = "Green" });
         }
 
         public void MoveDown()
         {
-            var snakeHead = this.Last();
-            this.RemoveAt(0); // removes the tail
-            this.Add(new Indexes { Row = snakeHead.Row + 1, Column = snakeHead.Column });
+            var snakeHead = _snake[SnakeLength - 1];
+            this.Where(b => b.Row == _snake[0].Row && b.Column == _snake[0].Column).Single().Color = "White";
+            _snake.RemoveAt(0); // removes the tail
+            this.Where(b => b.Row == snakeHead.Row + 1 && b.Column == snakeHead.Column).Single().Color = "Green";
+            _snake.Add(new Indexes { Row = snakeHead.Row + 1, Column = snakeHead.Column, Color = "Green" });
         }
 
         public void MoveLeft()
         {
-            var snakeHead = this.Last();
-            this.RemoveAt(0); // removes the tail
-            this.Add(new Indexes { Row = snakeHead.Row, Column = snakeHead.Column - 1 });
+            var snakeHead = _snake[SnakeLength - 1];
+            this.Where(b => b.Row == _snake[0].Row && b.Column == _snake[0].Column).Single().Color = "White";
+            _snake.RemoveAt(0); // removes the tail
+            this.Where(b => b.Row == snakeHead.Row && b.Column == snakeHead.Column - 1).Single().Color = "Green";
+            _snake.Add(new Indexes { Row = snakeHead.Row, Column = snakeHead.Column - 1, Color = "Green" });
+            
         }
     }
 
-    public class Indexes
+    public class Indexes : INotifyPropertyChanged
     {
-        public int Row { get; set; }
-        public int Column { get; set; }
-        public string Color { get; set; }
+        private int _row;
+        private int _column;
+        private string _color;
+
+        public int Row
+        {
+            get { return _row; }
+            set
+            {
+                _row = value;
+                OnPropertyChanged("Row");
+            }
+        }
+        public int Column
+        {
+            get { return _column; }
+            set
+            {
+                _column = value;
+                OnPropertyChanged("Column");
+            }
+        }
+        public string Color
+        {
+            get { return _color; }
+            set
+            {
+                _color = value;
+                OnPropertyChanged("Color");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

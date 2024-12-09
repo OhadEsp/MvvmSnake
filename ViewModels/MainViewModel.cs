@@ -77,14 +77,19 @@ namespace MvvmSnake.ViewModels
 
         private bool CanMoveUp()
         {
-            if (Snake.Count <= 1)
+            if (Snake.SnakeLength <= 1)
                 return true; // Snake can always move if it's just one segment
 
-            var head = Snake.Last();
-            var beforeHead = Snake[Snake.Count - 2];
+            var head = Snake.SnakeIndexes[Snake.SnakeLength - 1];
+            var beforeHead = Snake.SnakeIndexes[Snake.SnakeLength - 2];
+
+            // Snake can't move up if above the head there is a green block.
+            var above = Snake.SnakeIndexes.FirstOrDefault(b => b.Row == head.Row - 1 && b.Column == head.Column);
+            if (above != null && above.Color == "Green")
+                return false;
 
             // Snake can't move in reverse (downwards)
-            if (head.Row < beforeHead.Row && head.Column == beforeHead.Column)
+            if (head.Row > beforeHead.Row && head.Column == beforeHead.Column)
                 return false;
 
             // Snake can't cross the board borders
@@ -96,11 +101,16 @@ namespace MvvmSnake.ViewModels
 
         private bool CanMoveRight()
         {
-            if (Snake.Count <= 1)
+            if (Snake.SnakeLength <= 1)
                 return true; // Snake can always move if it's just one segment
 
-            var head = Snake.Last();
-            var beforeHead = Snake[Snake.Count - 2];
+            var head = Snake.SnakeIndexes[Snake.SnakeLength - 1];
+            var beforeHead = Snake.SnakeIndexes[Snake.SnakeLength - 2];
+
+            // Snake can't move right if rightwards the head there is a green block.
+            var rightwards = Snake.SnakeIndexes.FirstOrDefault(b => b.Row == head.Row && b.Column == head.Column + 1);
+            if (rightwards != null && rightwards.Color == "Green")
+                return false;
 
             // Snake can't move in reverse (leftwards)
             if (head.Column < beforeHead.Column && head.Row == beforeHead.Row)
@@ -115,14 +125,19 @@ namespace MvvmSnake.ViewModels
 
         private bool CanMoveDown()
         {
-            if (Snake.Count <= 1)
+            if (Snake.SnakeLength <= 1)
                 return true; // Snake can always move if it's just one segment
 
-            var head = Snake.Last();
-            var beforeHead = Snake[Snake.Count - 2];
+            var head = Snake.SnakeIndexes[Snake.SnakeLength - 1];
+            var beforeHead = Snake.SnakeIndexes[Snake.SnakeLength - 2];
+
+            // Snake can't move down if below the head there is a green block.
+            var below = Snake.SnakeIndexes.FirstOrDefault(b => b.Row == head.Row + 1 && b.Column == head.Column);
+            if (below != null && below.Color == "Green")
+                return false;
 
             // Snake can't move in reverse (upwards)
-            if (head.Row > beforeHead.Row && head.Column == beforeHead.Column)
+            if (head.Row < beforeHead.Row && head.Column == beforeHead.Column)
                 return false;
 
             // Snake can't cross the board borders
@@ -134,14 +149,19 @@ namespace MvvmSnake.ViewModels
 
         private bool CanMoveLeft()
         {
-            if (Snake.Count <= 1)
+            if (Snake.SnakeLength <= 1)
                 return true; // Snake can always move if it's just one segment
 
-            var head = Snake.Last();
-            var tail = Snake[Snake.Count - 2];
+            var head = Snake.SnakeIndexes[Snake.SnakeLength - 1];
+            var beforeHead = Snake.SnakeIndexes[Snake.SnakeLength - 2];
+
+            // Snake can't move left if leftwards the head there is a green block.
+            var leftwards = Snake.SnakeIndexes.FirstOrDefault(b => b.Row == head.Row && b.Column == head.Column - 1);
+            if (leftwards != null && leftwards.Color == "Green")
+                return false;
 
             // Snake can't move in reverse (rightwards)
-            if (head.Column > tail.Column && head.Row == tail.Row)
+            if (head.Column > beforeHead.Column && head.Row == beforeHead.Row)
                 return false;
 
             // Snake can't cross the board borders

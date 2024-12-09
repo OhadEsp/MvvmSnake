@@ -8,11 +8,11 @@
 
     <Border BorderBrush="Black" BorderThickness="2">
         <Grid x:Name="boardGrid" ShowGridLines="True">
-            <ItemsControl ItemsSource="{Binding Snake, Converter={StaticResource MyDebugConverter}}">
+            <ItemsControl ItemsSource="{Binding Snake}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <!-- Use a UniformGrid instead to ensure shared layout -->
-                        <UniformGrid Rows="{Binding BoardSize, Converter={StaticResource MyDebugConverter}}" Columns="{Binding BoardSize, Converter={StaticResource MyDebugConverter}}" />
+                        <UniformGrid Rows="{Binding BoardSize}" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
